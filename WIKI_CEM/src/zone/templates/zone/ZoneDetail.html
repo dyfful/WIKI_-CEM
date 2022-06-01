@@ -1,0 +1,245 @@
+{% extends 'baseSansBg.html' %}
+
+{% block title %}
+    <title>WIKI CEM | {{zone.libelle}}</title>
+{% endblock %}
+
+{% block content %}
+    <center>
+        <h3>{{zone.CategorieZone.libelle}} | {{zone.libelle}} | PO {{zone.PO}}</h3>
+    </center>
+
+    <div class="container" style="border:1px solid yellow;">
+      <div class="row" style="border:1px solid red;">
+        <div class="col-7" style="border:1px solid black;">
+            <div class="col" style="border:1px solid green;">
+                <table border="1">
+                  <tr>
+                      {% if zone.image %}
+                            <img src="{{zone.image.url}}" class="img-fluid" alt="{{zone.libelle}}">
+                      {% else %}
+                            <h1 style="font-size:0.57em;">Aucune image pour cette zone.</h1>
+                      {% endif %}
+                  </tr>
+                </table>
+            </div>
+            <br>
+
+
+        </div>
+
+
+
+        <div class="col">
+            <table border="0" style="font-size:0.57em;">
+                <thead>
+                    <tr>
+                        <th colspan="2"><h5><nobr>TABLES DES MATIÈRES</nobr></h5></th>
+                    </tr>
+                </thead>
+            <tbody>
+                    {% for Com in C %}
+                          <tr>
+                              <td>
+                                  <h6>
+                                   {% if Com.Statut.id == 1 %}
+                                    <span title="Non vérifié par l'administrateur">
+                                            <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                        <a href="#{{ Com }}">
+                                            <u>{{ Com }}</u>
+                                        </a>
+                                    </span>
+
+                                      {% elif Com.Statut.id == 2 %}
+                                        <span title="Vérifié par l'administrateur">
+                                                <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+
+                                            <a href="#{{ Com }}">
+                                                <u>{{ Com }}</u>
+                                            </a>
+                                        </span>
+                                      {% endif %}
+                                    </h6>
+                              </td>
+
+                              <td>
+                                    <!-- <h6>
+                                        <a href="#{{ Com }}">
+                                            <u>{{ Com }}</u>
+                                        </a>
+                                    </h6>   -->
+
+                                        {% empty %}
+                                           <td>
+                                              <h6>Aucune table des matières pour ce poste</h6>
+                                          </td>
+
+                                  {% endfor %}
+                              </td>
+                          </tr>
+                    </tbody>
+                </table>
+
+            <br>
+
+            <table border="0" style="font-size:0.4em;" class = "table table-info table-sm">
+                <thead>
+                    <th><center><h5>ACR</h5></center></th>
+                    <th><center><h5>GROUPEMENT</h5></center></th>
+                </thead>
+                <tbody>
+                <nobr>
+                <tr>
+                    <td>
+                        <h6>
+                            <center>{% for ACR in zone.ACR.all %}
+                                        {{ACR}}
+                                      {% empty %}
+                                        Aucun ACR
+                                      {% endfor %}
+                            </center>
+                        </h6>
+                    </td>
+                    <td>
+                        <h6>
+                        <center>
+                                  {% for Groupement in zone.Groupement.all %}
+                                     {{Groupement}}
+                                  {% empty %}
+                                    Aucun groupement.
+                                  {% endfor %}
+                        </center>
+                        </h6>
+                    </td>
+                </tr>
+                    </nobr>
+                </tbody>
+            </table>
+
+            <table border="0" style="font-size:0.4em;" class = "table table-info table-sm">
+                <thead>
+                    <th><center><h5>Liens vers fiches postes</h5></center></th>
+                </thead>
+                <tbody>
+                <nobr>
+                    {% for Poste in zone.Poste.all %}
+                <tr>
+                    <td>
+                        <h6>
+                            <center>
+                             <a href="{% url 'poste:PosteP' pk=Poste.pk %}"><h8>{{Poste}}</h8></a>
+                                    {% empty %}
+                                        Aucun poste électrique pour cette zone.
+                            </center>
+                        </h6>
+                    </td>
+                </tr>
+                    {% endfor %}
+                    </nobr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+
+    </div>
+
+       <div class = "container">
+        <div class="row">
+            <div class="coll">
+
+                <table border="0" style="font-size:0.7em;" class = "linear-gradient">
+                <thead>
+                    <tr>
+                        <th><center><h4>Présentation</h4></center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <h6>
+                                {{zone.presentation}}
+                            </h6>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            </div>
+        </div>
+    </div>
+    <br>
+        <div class="container">
+            <a href="{% url 'zone:Create-Comment-Zone' pk=zone.pk %}">
+                <button class="btn btn-secondary">CRÉER CONTENU</button>
+            </a>
+        </div>
+    <br>
+     <div class="container">
+                      <div class="row">
+                    <div class="col">
+                  {% for Com in C %}
+                   <table border="1" class = "linear-gradient" style="font-size:0.57em;">
+                          <thead>
+                              <tr>
+                                  <th>
+                                      <center><h4>{{ Com.Titre }}</h4></center>
+                                      <br>
+                                      <div id="{{ Com.Titre }}"></div>
+                                  </th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>
+                                      <h6>{{ Com.Contenu }}</h6>
+                                  </td>
+                              </tr>
+
+                              <tr>
+                                  <td>&nbsp</td>
+                              </tr>
+                                  <td>
+                                      <h6>
+
+                                      <i>
+                                              {{ Com.Nom }} {{ Com.Prenom }} &nbsp;Dernière modification : {{ Com.DateModification }}   &nbsp
+                                              {% if Com.Statut.id == 1 %}
+                                            <span style="float:right;" title="Non vérifié par l'administrateur">
+                                                <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                                <i>Non vérifié</i>
+                                                </span>
+                                      {% elif Com.Statut.id == 2 %}
+                                            <span style="float:right;" title="Vérifié par l'administrateur">
+                                                <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+                                                <i>Vérifié</i>
+                                            </span>
+                                      {% endif %}
+                                          </i>
+                                    </h6>
+                                  </td>
+
+                             <!-- <tr>
+                                  <td>
+                                    <h6> <i>Date publication : {{ Com.DateCreation }}</i></h6>
+                                  </td>
+                              </tr>-->
+
+                              <tr>
+                                  <td>
+                                      <a href="{% url 'zone:Create-Comment-Edit' pk=Com.pk %}" target="_blank">
+                                            <button class="btn btn-warning">MODIFIER</button>
+                                      </a>
+
+                                       <a href="{% url 'zone:HistoriqueCommentaire' pk=Com.pk %}" target="_blank">
+                                            <button class="btn btn-dark">HISTORIQUE COMMENTAIRE</button>
+                                       </a>
+                                  </td>
+                              </tr>
+                          </tbody>
+                        </table>
+                        <br><br>
+                        {% endfor %}
+                              </div>
+
+
+{% endblock %}

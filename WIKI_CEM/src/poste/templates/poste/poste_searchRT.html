@@ -1,0 +1,64 @@
+{% extends 'baseSansBg.html' %}
+
+{% block title %}
+    <title>WIKI CEM | POSTES</title>
+{% endblock %}
+
+{% block content %}
+<h3>
+    <center>
+        <h1>POSTES</h1>
+    </center>
+
+    <br>
+    {% include 'alphabet.html' %}
+
+    <br>
+
+    <center>
+            <table border="0" class = "linear-gradient">
+                <thead>
+                    <tr>
+                        <th border = 2px, colspan="2"><center><h2>Résultat</h2></center></th>
+                        {% if C %}
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for post in C %}
+                    <tr>
+                        <td>
+                            <center>
+                                <h4>
+                                    {% if post.Tension.libelle == "400 kV" %}
+                                            <a href="{% url 'poste:PosteP' pk=post.pk %}" style="color: #C60800;" target="_blank">{{post.libelle}} {{post.Tension}}</a>
+                                        {% elif post.Tension.libelle == "225 kV" %}
+                                            <a href="{% url 'poste:PosteP' pk=post.pk %}" style="color: #7CFC00;" target="_blank">{{post.libelle}} {{post.Tension}}</a>
+                                        {% elif post.Tension.libelle == "150 kV" %}
+                                            <a href="{% url 'poste:PosteP' pk=post.pk %}" style="color: blue;" target="_blank">{{post.libelle}} {{post.Tension}}</a>
+                                        {% elif post.Tension.libelle == "90 kV" %}
+                                            <a href="{% url 'poste:PosteP' pk=post.pk %}" style="color: purple;" target="_blank">{{post.libelle}} {{post.Tension}}</a>
+                                        {% elif post.Tension.libelle == "63 kV" %}
+                                            <a href="{% url 'poste:PosteP' pk=post.pk %}" style="color: black;" target="_blank">{{post.libelle}} {{post.Tension}}</a>
+                                        {% elif post.Tension.libelle == "<45 kV" %}
+                                            <a href="{% url 'poste:PosteP' pk=post.pk %}" style="color: #7F5539;" target="_blank">{{post.libelle}} {{post.Tension}}</a>
+                                        {% elif post.Tension.libelle == "COURANT CONTINU" %}
+                                            <a href="{% url 'poste:PosteP' pk=post.pk %}" style="color: red;" target="_blank">{{post.libelle}} {{post.Tension}}</a>
+                                        {% elif post.Tension.libelle == "HORS TENSION" %}
+                                            <a href="{% url 'poste:PosteP' pk=post.pk %}" style="color: silver;" target="_blank">{{post.libelle}} {{post.Tension}}</a>
+                                        {% endif %}
+                                </h4>
+                             </center>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% else %}
+                        <tr>
+                            <td>Aucun poste pour cette lettre.</td>
+                        </tr>
+                        {% endif %}
+                </tbody>
+            </table>
+    </center>
+</h3>
+{% endblock %}

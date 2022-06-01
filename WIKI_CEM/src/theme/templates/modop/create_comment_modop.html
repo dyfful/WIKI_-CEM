@@ -1,0 +1,29 @@
+{% extends 'baseSansBg.html' %}
+
+{% block title %}
+    <title>WIKI CEM | MODOP</title>
+{% endblock %}
+
+{% block content %}
+<h3>
+    <center>
+        <h1>Créer un commentaire {{modop_detail.libelle}}</h1>
+    </center>
+
+    <br>
+
+    <a href="{% url 'theme:Home' %}">
+        <button>Retour à l'accueil</button>
+    </a>
+
+</form>
+
+    <center>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Créer commentaire">
+        </form>
+    </center>
+</h3>
+{% endblock %}

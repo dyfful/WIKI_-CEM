@@ -1,0 +1,35 @@
+{% extends 'baseSansBg.html' %}
+
+
+{% block title %}
+    <title>WIKI CEM | MODOP</title>
+{% endblock %}
+
+{% block content %}
+<h3>
+    <center>
+        <h1>MODOP</h1>
+    </center>
+
+    <center>
+        <table border="0" class = "table table-hover">
+            <thead>
+            <tr>
+                <th><h2>MODOP disponible sur notre WIKI CEM</h2></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for m in modop %}
+            <tr>
+                <td>
+                    <h4>
+                        <a href="{% url 'theme:Modop-detail' pk=m.pk %}">{{m.Titre}}</a>
+                    </h4>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </center>
+</h3>
+{% endblock %}

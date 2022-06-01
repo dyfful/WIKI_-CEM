@@ -1,0 +1,506 @@
+{% extends 'baseSansBg.html' %}
+
+{% block title %}
+    <title>{{object.libelle}} {{object.Tension}}</title>
+{% endblock %}
+
+{% block content %}
+
+{% if object.image %}
+    <div id="imageApercu" class="modal">
+            <div class ="modal_content">
+                <table border="1">
+                     <img src="{{object.image.url}}" title="{{object.libelle}}" alt="{{object.libelle}}">
+                </table>
+
+            <a href="#" class="modal_close">&times;</a>
+            </div>
+    </div>
+
+{% else %}
+    <h1 style="font-size:0.57em;"></h1>
+{% endif %}
+
+
+    <br>
+  {% include 'alphabet.html' %}
+    <br>
+
+    <div class="container">
+          <div class="row">
+            <div class="col">
+
+                <center>
+            <table class="table" border="0" style="font-size:0.57em;" class = "linear-gradient">
+                <tbody>
+                    <tr>
+                        <th>
+                            <h4>POSTE&nbsp</h4>
+                        </th>
+
+                        <th>
+                            <nobr>
+                                {% if object.Tension.libelle == "400 kV" %}
+                                        <h4 style="color: #C60800;">{{object.libelle}}</h4>
+                                {% elif object.Tension.libelle == "225 kV" %}
+                                        <h4 style="color: #7CFC00;;">{{object.libelle}}</h4>
+                                {% elif object.Tension.libelle == "150 kV" %}
+                                        <h4 style="color: blue;">{{object.libelle}}</h4>
+                                {% elif object.Tension.libelle == "90 kV" %}
+                                        <h4 style="color: purple;">{{object.libelle}}</h4>
+                                {% elif object.Tension.libelle == "63 kV" %}
+                                         <h4 style="color: black;">{{object.libelle}}</h4>
+                                {% elif object.Tension.libelle == "<45 kV" %}
+                                        <h4 style="color: #7F5539;">{{object.libelle}}</h4>
+                                {% elif object.Tension.libelle == "COURANT CONTINU" %}
+                                        <h4 style="color: red;">{{object.libelle}}</h4>
+                                {% elif object.Tension.libelle == "HORS TENSION" %}
+                                        <h4 style="color: silver;">{{object.libelle}}</h4>
+                                {% endif %}
+                            </nobr>
+                        </th>
+                        <th>
+                            <nobr>
+                                <h4>
+                                    &nbsp;{{object.Tension}}
+                                </h4>
+                            </nobr>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+
+                      <table border="1">
+                          <tr>
+                              {% if object.image %}
+                              <a href="#imageApercu">
+                                    <img src="{{object.image.url}}" class="img-fluid" alt="{{object.libelle}}">
+                              </a>
+
+                            <center>
+                                <legend href="#imageApercu"><a href="#imageApercu">>> Cliquez ici pour agrandir <<</a></legend>
+                            </center>
+
+                              {% else %}
+                                    <h6>Aucune image pour ce poste.</h6>
+                              {% endif %}
+                          </tr>
+                      </table>
+                    </table>
+
+                    </center>
+                <br>
+                </div>
+
+                <div class="col-4">
+                    <table border="0" style="font-size:0.57em;">
+                        <thead>
+                            <tr>
+                                <th colspan="2"><h5>SCHÉMA PRÉFÉRENTIEL</h5></th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td><h6>{{ object.schemas_preferentiel|safe }}</h6></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                {% if object.statut_sp is True %}
+                                    <span style="float:right;" title="Vérifié par l'administrateur">
+                                       <h6>
+                                           <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+                                            <i>Vérifié</i>
+                                       </h6>
+                                    </span>
+
+                                    {% else %}
+                                    <span style="float:right;" title="Non vérifié par l'administrateur">
+                                        <h6>
+                                            <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                            <i>Non vérifié</i>
+                                        </h6>
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a href="{% url 'poste:Create-SP-Edit' pk=object.pk %}" target="_blank">
+                                    <button class="btn btn-warning">MODIFIER</button>
+                                </a>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            <div class="col">
+                <table border="0" style="font-size:0.57em;">
+                    <thead>
+                        <tr>
+                            <th colspan="2"><h5><nobr>TABLES DES MATIÈRES</nobr></h5></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for Com in C %}
+                          <tr>
+                              <td>
+                                  <h6>
+                                   {% if Com.Statut.id == 1 %}
+                                    <span title="Non vérifié par l'administrateur">
+                                            <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                        <a href="#{{ Com }}">
+                                            <u>{{ Com }}</u>
+                                        </a>
+                                    </span>
+
+                                      {% elif Com.Statut.id == 2 %}
+                                        <span title="Vérifié par l'administrateur">
+                                                <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+
+                                            <a href="#{{ Com }}">
+                                                <u>{{ Com }}</u>
+                                            </a>
+                                        </span>
+
+                                      {% elif Com.Statut.id == 3 %}
+                                        <span title="Demande de suppression">
+<!--                                                <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">-->
+                                            <a href="#{{ Com }}">
+                                               <strike><u style="color:red;">{{ Com }}</u></strike>
+                                            </a>
+                                        </span>
+                                      {% endif %}
+                                    </h6>
+                              </td>
+
+                              <td>
+                                    <!-- <h6>
+                                        <a href="#{{ Com }}">
+                                            <u>{{ Com }}</u>
+                                        </a>
+                                    </h6>   -->
+
+                                        {% empty %}
+                                           <td>
+                                              <h6>Aucune table des matières pour ce poste</h6>
+                                          </td>
+
+                                  {% endfor %}
+                              </td>
+                          </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+</div>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <table border="0" style="font-size:0.6em;" class = "linear-gradient">
+                    <thead>
+                        <tr>
+                            <th><center><h5>CONSIGNES</h5></center></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h6>
+                                      <nobr>
+                                      {% for Consigne in object.Consigne.all %}
+                                          <a href="{{Consigne.url}}">{{Consigne}}</a><br>
+                                      {% empty %}
+                                        Aucune consigne
+                                      {% endfor %}
+                                      </nobr>
+                                </h6>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+ <!-- style="font-size:0.6em;" -->
+                    <div class="col">
+                        <table border="0" class = "linear-gradient">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <center>
+                                        <h5>ZONES</h5>
+                                    </center>
+                                </th>
+                            </tr>
+
+                            </thead>
+                        <tbody>
+                          <td>
+                              <h6>
+                                  <nobr>
+                                      {% for Zone in Zone %}
+                                          <a href="{% url 'zone:Zone-detail' pk=Zone.pk %}">{{Zone}}</a><br>
+                                      {% empty %}
+                                        Aucune zone
+                                      {% endfor %}
+                                  </nobr>
+                              </h6>
+                          </td>
+                          </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+
+                </div>
+                <div class="col">
+                <table border="0" style="font-size:0.6em;" class = "linear-gradient">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+<!--                                    <center><h5>INFORMATION SUPPLEMENTAIRES</h5></center>-->
+                                    <center><h5>CARTE IDENTITÉ</h5></center>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                          <nobr>
+                        <tr>
+                            <td>
+                                <h6>CODE POSTE</h6>
+                            </td>
+                            <td>
+                                <h6>:&nbsp {{object.idRTE}}</h6>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>
+                                     TYPE
+                                </h6>
+                            </td>
+                            <td>
+                                <h6>
+                                    :&nbsp {{object.TypePoste}}
+                                </h6>
+                            </td>
+                        </tr>
+                              <td><h6>GROUPEMENT</h6></td>
+                              <td><h6>:&nbsp {{ object.Groupement }}</h6></td>
+                          </tr><tr>
+                              <td><h6>CCO</h6></td>
+                              <td><h6>:&nbsp {{ object.CCO }}</h6></td>
+                          </tr><tr>
+                              <td><h6>FILERIE</h6></td>
+                              <td><h6>:&nbsp {{ object.Filerie }}</h6></td>
+                          </tr><tr>
+                              <td><h6>AUTOMATISME POSTE</h6></td>
+                              <td><h6>:&nbsp {{ object.AutomatismePoste }}</h6></td>
+                          </tr><tr>
+                              <td><h6>PROTECTION BARRES</h6></td>
+                              <td><h6>:&nbsp {{ object.protectionBarre }}</h6></td>
+                          </tr><tr>
+                              <td><h6>CLIENTS RACCORDÉS SUR JDB</h6></td>
+                              <td><h6>:&nbsp {{ object.JDB }}</h6></td>
+                          </tr>
+                              </nobr>
+                    </tbody>
+                      </table>
+            </div>
+
+                <div class="col">
+                    <table  border="0" style="font-size:0.57em;">
+                        <thead>
+                            <tr>
+<!--                                <th><h5>AUTRES PARTICULARITÉS</h5></th>-->
+                                <th><h5>INFORMATIONS GENERALES</h5></th>
+                            </tr>
+                        </thead>
+                    <tbody>
+
+                            {% if object.autre_particulariter %}
+                                        <tr>
+                                            <td><h6>{{ object.autre_particulariter }}</h6></td>
+                                        </tr>
+                                  {% else %}
+                                        <tr>
+                                            <td><h6>Aucune particulariter pour ce poste.</h6></td>
+                                        </tr>
+                            {% endif %}
+                        <tr>
+                            <td>
+                                {% if object.statut_ap is True %}
+                                    <span style="float:right;" title="Vérifié par l'administrateur">
+                                        <h6>
+                                        <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+                                        <i>Vérifié</i>
+                                        </h6>
+                                    </span>
+
+                                    {% else %}
+                                    <span style="float:right;" title="Non vérifié par l'administrateur">
+                                        <h6>
+                                        <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                        <i>Non vérifié</i>
+                                        </h6>
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <a href="{% url 'poste:Create-AP-Edit' pk=object.pk %}" target="_blank">
+                                    <button class="btn btn-warning">MODIFIER</button>
+                                </a>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+
+            <a href="{% url 'poste:Create-Comment' pk=object.pk %}" target="_blank">
+                <button class="btn btn-secondary">AJOUTER CONTENU</button>
+            </a>
+
+            <a href="{% url 'poste:PosteUpdate' pk=object.pk %}" target="_blank">
+                <button class="btn btn-warning">MODIFIER POSTE</button>
+            </a>
+
+        </div>
+     <br>
+
+    </center>
+    </center>
+
+              <div class="container">
+                <div class="row">
+                  {% for Com in C %}
+                    <div class="col-12">
+                      <table border="0" class = "linear-gradient" style="font-size:0.57em;">
+                          <thead>
+                              <tr>
+                                  <th>
+                                      <center>
+                                          <h4>
+                                              {% if Com.Statut.id == 3 %}
+                                                    <strike>{{ Com.Titre }}</strike>
+                                              {% else %}
+                                                    {{ Com.Titre }}
+                                              {% endif %}
+                                          </h4>
+                                      </center>
+                                      <br>
+                                      <div id="{{ Com.Titre }}"></div>
+                                  </th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>
+                                      <h6>
+                                          {% if Com.Statut.id == 3 %}
+                                                <strike>{{ Com.Contenu }}</strike>
+                                          {% else %}
+                                                {{ Com.Contenu }}
+                                          {% endif %}
+                                      </h6>
+                                  </td>
+                              </tr>
+
+                              <tr>
+                                  <td>&nbsp</td>
+                              </tr>
+                                 <!-- <td>
+                                      <h6>
+
+&lt;!&ndash;                                      {{ Com.Nom }} {{ Com.Prenom }} &nbsp;&ndash;&gt;
+
+                                      {% if Com.Statut.id == 1 %}
+                                            <span style="float:right;" title="Non vérifié par l'administrateur">
+                                                <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                                <i>Non vérifié</i>
+                                                </span>
+                                      {% elif Com.Statut.id == 2 %}
+                                            <span style="float:right;" title="Vérifié par l'administrateur">
+                                                <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+                                                <i>Vérifié</i>
+                                            </span>
+                                      {% endif %}
+                                    </h6>
+                                  </td>-->
+
+                              <!--<tr>
+                                  <td>
+                                    <h6> <i>Date publication : {{ Com.DateCreation }}</i></h6>
+                                  </td>
+                              </tr>-->
+                              <tr>
+                                  <td>
+                                      <h6>
+                                          <i>
+                                              {{ Com.Nom }} {{ Com.Prenom }} &nbsp;Dernière modification : {{ Com.DateModification }}   &nbsp
+                                              {% if Com.Statut.id == 1 %}
+                                            <span style="float:right;" title="Non vérifié par l'administrateur">
+                                                <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                                <i>Non vérifié</i>
+                                                </span>
+                                      {% elif Com.Statut.id == 2 %}
+                                            <span style="float:right;" title="Vérifié par l'administrateur">
+                                                <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+                                                <i>Vérifié</i>
+                                            </span>
+                                      {% endif %}
+                                          </i>
+                                      </h6>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <a href="{% url 'poste:Create-Comment-Edit' pk=Com.pk %}" target="_blank">
+                                            <button class="btn btn-warning">MODIFIER</button>
+                                      </a>
+
+                                       <a href="{% url 'poste:HistoriqueCommentaire' pk=Com.pk %}" target="_blank">
+                                            <button class="btn btn-dark">HISTORIQUE</button>
+                                       </a>
+
+                                      <a href="{% url 'poste:SupprimerCommentaire' pk=Com.pk %}">
+                                            <button class="btn btn-danger" onclick="clicked(event)">SUPPRIMER</button>
+                                      </a>
+
+                                      <script>
+                                            function clicked(e)
+                                            {
+                                                if(!confirm('ÊTES VOUS SÛR ?')) {
+                                                    e.preventDefault();
+                                                }
+                                            }
+                                         </script>
+
+
+<!--                                       onClick="window.location.reload();" -->
+                                      <!--<script>
+                                          const buttom = document.querySelector("#deletor")
+                                              buttom.onclick = () => {
+                                                console.log('click')
+                                            }
+                                      </script>-->
+                                  </td>
+                              </tr>
+                          </tbody>
+                        </table>
+                        <br>
+                    </div>
+                        {% endfor %}
+                </div>
+              </div>
+        </div>
+
+{% endblock %}

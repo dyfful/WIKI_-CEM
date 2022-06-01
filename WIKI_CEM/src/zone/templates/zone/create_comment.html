@@ -1,0 +1,30 @@
+{% extends 'baseSansBg.html' %}
+
+{% block title %}
+    <title>Zone | WIKI CEM</title>
+{% endblock %}
+
+{% block content %}
+
+    <!--<center>
+        <h1>Créer un commentaire {{object.libelle}}</h1>
+        <h1>{{object.Zone}}</h1>
+        <h1>{{object.pk}}</h1>
+    </center>-->
+
+    <br>
+
+    <a href="{% url 'zone:Zone-Home' %}">
+        <button>Retour à l'accueil</button>
+    </a>
+
+</form>
+
+    <center>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Créer commentaire">
+        </form>
+    </center>
+{% endblock %}

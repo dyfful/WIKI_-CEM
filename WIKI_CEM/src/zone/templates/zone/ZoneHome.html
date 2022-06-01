@@ -1,0 +1,44 @@
+{% extends 'baseSansBg.html' %}
+
+{% block title %}
+    <title>WIKI CEM | ZONES</title>
+{% endblock %}
+
+{% block content %}
+
+    <!--<center>
+        <h2>ZONES</h2>
+    </center>-->
+
+    <center><h3>Les Zones disponibles sur notre WIKI CEM</h3></center>
+    <br>
+
+    <center>
+        <div class="container">
+            <div class="row">
+                {% for cat in Cat %}
+                <div class="col">
+                    <table border="0" class = "table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>{{ cat.libelle }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                         {% for zone in cat.zone_set.all %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'zone:Zone-detail' pk=zone.pk %}">{{ zone.libelle }}</a>
+                            </td>
+                        </tr>
+                         {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+
+{% endblock %}

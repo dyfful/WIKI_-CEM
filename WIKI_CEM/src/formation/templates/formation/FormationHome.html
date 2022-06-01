@@ -1,0 +1,163 @@
+{% extends 'baseSansBg.html' %}
+
+{% block title %}
+    <title>WIKI CEM | FORMATION</title>
+{% endblock %}
+
+{% block content %}
+
+    <center>
+        <table border="1
+" cellpadding=10 cellspacing=20>
+            <tr>
+                <td>
+                    <a class="navbar-brand" href="{% url 'poste:Home'%}">
+<!--                        <img src="../../static/img/Sideral.jpg" alt="Réseau Transport Électricité" width="300px" height="90px">-->
+                         <img src="../../static/img/RTE_Logotype_interne_CMJN_Bleu.svg" class='img-fluid' alt="Réseau Transport Électricité" width="100px" height="100px">
+                    </a>
+                </td>
+                 <td>
+                     <h1>FORMATION</h1>
+                 </td>
+                 <td>
+                     <a href="">
+                        <button class="btn btn-primary" type="submit">DÉCLARER UN BESOIN</button>
+<!--                        <button class="btn btn-primary" type="submit" onclick="clicked(event)">TOUCH ME</button>-->
+<!--                         <script>
+                            function clicked(e)
+                            {
+                                if(!confirm('ÊTES VOUS SÛR ?')) {
+                                    e.preventDefault();
+                                }
+                            }
+                         </script>-->
+                    </a>
+                 </td>
+            </tr>
+        </table>
+    </center>
+    <br>
+
+    <div class="container" style="border:1px solid yellow;">
+        <div class="col">
+            <img src="../../static/img/linkedinTaille3Filigrane.jpeg" class='img-fluid' alt="Réseau Transport Électricité">
+        </div>
+    </div>
+
+    <br>
+            <center>
+            <table border="0" class = "linear-gradient">
+                <thead>
+                    <tr>
+                        <th border = 2px, colspan="2"><center><h1>VOUS CHERCHEZ UNE FORMATION ?</h1></center></th>
+                    </tr>
+                </thead>
+                <!--<tbody>
+                    <tr>
+                        <td><center><h4>C’est ici que seront publier les informations liées au maitien en compétence du CEM.</h4></center></td>
+                    </tr>
+                </tbody>-->
+            </table>
+        </center>
+                <br><br>
+
+
+            <div class="container" style="border:1px solid red;">
+              <div class="row">
+
+                {% for d in formation %}
+                    <div class="col" style="border:1px solid yellow;">
+
+
+                            <table border="0" class = "linear-gradient">
+                                <thead>
+                                    <tr>
+                                        <th border = 2px, colspan="2"><center><h4><nobr>{{ d.libelle}}</nobr></h4></center></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><center><h4><a href="{{d.url}}" target="_blank">> {{ d.nomButton}} <</a></h4></center></td>
+                                    </tr>
+                                </tbody>
+                            </table><br>
+                    </div>
+
+               {% endfor %}
+
+                    <!--<div class="col-4" style="border:1px solid yellow;">
+                         <table border="0" class = "linear-gradient">
+                            <thead>
+                                <tr>
+                                    <th border = 2px, colspan="2"><center><h2>Documentation technique</h2></center></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><center><h4><a href="">> Maquette <</a></h4></center></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+-->
+                    <!--<div class="col-4" style="border:1px solid yellow;">
+                         <table border="0" class = "linear-gradient">
+                            <thead>
+                                <tr>
+                                    <th border = 2px, colspan="2"><center><h2>Planning des formation locales</h2></center></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><center><h4><a href="">> Excel <</a></h4></center></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>-->
+              </div>
+            </div>
+
+
+<br><br>
+
+<center>
+    <footer>
+        <table border="0" class = "linear-gradient" cellpadding=15 cellspacing=20>
+            <thead>
+                <tr>
+                    <th border = 2px colspan="4"><center>
+                        <h5>
+                            <nobr>{% for f in Footer %}
+                                   {{f.Titre}}
+                                {% endfor %}
+                            </nobr>
+                        </h5>
+                            </center>
+                    </th>
+<!--                    <th border = 2px><center><h2><nobr>Liens utiles</nobr></h2></center></th>-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for l in Lien %}
+                        <td><center><p><a href="{{l.url}}">{{l.nom}}</a></p></center></td>
+                    {% endfor %}
+                    <!--<td><center><p><a href=""> FAQ </a></p></center></td>
+                    <td><center><p><a href=""> Cahier de formation </a></p></center></td>
+                    <td><center><p><a href=""> Cursus Propulse </a></p></center></td>
+                    <td><center><p><a href=""> Livrets exercices </a></p></center></td>-->
+                </tr>
+            </tbody>
+        </table>
+    </footer>
+</center>
+
+
+
+
+
+
+<!--        <p>Nombre de visites total : 96</p>-->
+
+    <br>
+{% endblock %}

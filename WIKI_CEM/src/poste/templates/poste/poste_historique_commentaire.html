@@ -1,0 +1,189 @@
+{% extends 'baseSansBg.html' %}
+
+
+{% block title %}
+    <title>WIKI CEM | HISTORIQUE COMMENTAIRE</title>
+{% endblock %}
+
+{% block content %}
+
+    <center>
+        <h1>HISTORIQUE DES MODIFICATIONS</h1>
+    </center>
+
+        {% for B in Actuel %}
+
+            <a href="{% url 'poste:PosteP' pk=B.Poste.pk %}">
+                <button class="btn btn-info"> &laquo; RETOUR AU POSTE {{B.Poste.libelle}} {{B.Poste.Tension}}</button>
+            </a>
+
+        {% endfor %}
+
+
+        <div class="container">
+          <div class="row">
+            <div class="col">
+
+                <center>
+                    <caption>COMMENTAIRE ACTUEL</caption>
+                </center>
+                <hr>
+
+                {% for A in Actuel %}
+                <!-- style="background-color:grey" -->
+                <div style="background-color:grey">
+                 <table border="0" class="table table-sm">
+                  <thead class="thead-light">
+                    <tr>
+                        <th scope="col"><nobr>DATE MODIFICATION</nobr></th>
+                         <!--<th scope="col"><nobr>DERNIERE MODIFICATION</nobr></th> -->
+                        <th scope="col">NOM</th>
+                        <!-- <th scope="col">TITRE</th> -->
+                        <!-- <th scope="col">CONTENU</th> -->
+                        <th scope="col">POSTE</th>
+                        <th scope="col"><center>STATUT</center></th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+
+                    <tr>
+                        <td><nobr>{{ A.DateModification}}</nobr></td>
+                         <!-- <td><nobr>{{ A.DateModification}}</nobr></td> -->
+                        <td><nobr>{{ A.Nom}} {{ A.Prenom}}</nobr></td>
+                        <!-- <td>{{ A.Titre}}</td> -->
+                        <!-- <td>{{ A.Contenu}}</td> -->
+                        <td>{{ A.Poste}}</td>
+
+                         {% if A.Statut.id == 1 %}
+                                <td>
+                                    <span style="float:center;" title="Non vérifié par l'administrateur">
+                                        <center>
+                                            <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                        </center>
+                                    </span>
+                                </td>
+
+                        {% elif A.Statut.id == 2 %}
+                                <td>
+                                    <span style="float:center;" title="Vérifié par l'administrateur">
+                                        <center>
+                                            <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+                                        </center>
+                                    </span>
+                                </td>
+                        {% endif %}
+                    </tr>
+                  </tbody>
+                </table>
+
+
+                    <table border="0" class="table table-sm">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">TITRE</th>
+                          <th scope="col">CONTENU</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row"><nobr>{{ A.Titre }}</nobr></th>
+                          <td>{{ A.Contenu }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                {% endfor %}
+</div>
+                <br><br>
+
+
+                <center><caption>HISTORIQUE <i>(du plus récent au moins récent)</i></caption></center>
+                <hr>
+
+
+
+
+                 {% for H in Historique %}
+        <div  style="background-color:#dcdcdc;">
+
+                <table border="0" class="table table-sm">
+                  <thead class="thead-light">
+                    <tr>
+                        <th scope="col"><nobr>DATE PUBLICATION</nobr></th>
+                        <th scope="col"><nobr>DERNIERE MODIFICATION</nobr></th>
+                        <th scope="col">NOM</th>
+                        <!-- <th scope="col">PRÉNOM</th> -->
+                        <!-- <th scope="col">TITRE</th> -->
+                        <!-- <th scope="col">CONTENU</th> -->
+                        <th scope="col">ACTION</th>
+                        <th scope="col">POSTE</th>
+                        <th scope="col">STATUT</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+
+                    <tr>
+                        <td><nobr>{{ H.Date}}</nobr></td>
+                        <td><nobr>{{ H.DateAction }}</nobr></td>
+                        <td><nobr><b>{{ H.Nom}} {{ H.Prenom}}</b></nobr></td>
+                        <!-- <td>{{ H.Prenom}}</td> -->
+                        <!-- <td>{{ H.Titre}}</td> -->
+                        <!-- <td>{{ H.Contenu}}</td> -->
+
+                        {% if H.Action == "CREATION COMMENTAIRE" %}
+                            <td class="text-primary"><b>{{ H.Action}}</b></td>
+                             {% elif H.Action == "MODIFICATION" %}
+                            <td class="text-danger"><b>{{ H.Action}}</b></td>
+                        {% endif %}
+
+                        <td>{{ H.Poste}}</td>
+
+                         {% if H.Statut.id == 1 %}
+                                <td>
+                                    <span style="float:center;" title="Non vérifié par l'administrateur">
+                                        <center>
+                                            <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                        </center>
+                                    </span>
+                                </td>
+
+                        {% elif H.Statut.id == 2 %}
+                                <td>
+                                    <span style="float:center;" title="Vérifié par l'administrateur">
+                                        <center>
+                                            <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+                                        </center>
+                                    </span>
+                                </td>
+                        {% endif %}
+
+
+                    </tr>
+                  </tbody>
+                </table>
+
+            <table border="0" class="table table-sm">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">TITRE</th>
+                      <th scope="col">CONTENU</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row"><nobr>{{ H.Titre }}</nobr></th>
+                      <td>{{ H.Contenu }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                </div>
+                <br><br>
+                                {% endfor %}
+            </div>
+          </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'baseSansBg.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title>THEME | WIKI CEM</title>
+{% endblock %}
+
+{% block content %}
+
+<br>
+    <a href="{% url 'theme:Theme' %}">
+        <button class="btn btn-dark">RETOUR ACCEUIL THEME</button>
+        <h1>{{RT}}{{Fiche}}</h1>
+    </a>
+
+    <center>
+        <h1>{{ titre }}</h1>
+    </center>
+
+
+</form>
+    <center>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <input type="submit" class="btn btn-success" value="{{ submit_text }}">
+        </form>
+    </center>
+
+{% endblock %}

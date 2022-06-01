@@ -1,0 +1,207 @@
+{% extends 'baseSansBg.html' %}
+
+{% block title %}
+
+        {% if theme_detail.TypeFiche.pk == 1%}
+            <title>{{theme_detail.TypeFiche.libelle}} | {{theme_detail.Titre}}</title>
+        {% else %}
+             <title>{{theme_detail.TypeFiche.libelle}} | {{theme_detail.Titre}}</title>
+        {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+{% if theme_detail.image %}
+    <div id="imageApercu" class="modal">
+            <div class ="modal_content"  class="modal_close">
+                <table border="1">
+                     <img src="{{theme_detail.image.url}}" class="img-fluid" title="{{theme_detail.Titre}}" alt="{{theme_detail.Titre}}" >
+                </table>
+
+            <a href="#" class="modal_close">&times;</a>
+            </div>
+    </div>
+
+{% else %}
+    <h1 style="font-size:0.57em;"></h1>
+{% endif %}
+
+    <center>
+        {% if theme_detail.TypeFiche.pk == 1%}
+            <h3>{{theme_detail.TypeFiche.libelle}} | {{theme_detail.Titre}}</h3>
+        {% else %}
+             <h1>{{theme_detail.TypeFiche.libelle}} | {{theme_detail.Titre}}</h1>
+        {% endif %}
+    </center>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+            <table border="0" width="50%">
+                  <tr>
+                      {% if theme_detail.image %}
+                      <a href="#imageApercu">
+                            <img src="{{theme_detail.image.url}}" class="img-fluid" alt="{{theme_detail.Titre}}">
+                      </a>
+
+                      <center>
+                            <legend href="#imageApercu"><a href="#imageApercu">>> Cliquez ici pour agrandir <<</a></legend>
+                      </center>
+                      {% else %}
+                            <h1 style="font-size:0.57em;">Aucune image pour ce thème.</h1>
+                      {% endif %}
+                  </tr>
+            </table>
+            <br>
+            <a href="{% url 'theme:Create-Comment-Theme-Modop' pk=theme_detail.pk %}">
+                            <button class="btn btn-secondary" >CRÉER CONTENU</button>
+            </a>
+        </div>
+
+        <div class="col">
+            <table border="0" style="font-size:0.57em;">
+                     <thead>
+                        <tr>
+                            <th colspan="2"><h5><nobr>TABLES DES MATIÈRES</nobr></h5></th>
+                        </tr>
+                    </thead>
+                <body>
+                <tbody>
+                    {% for Com in C %}
+                          <tr>
+                              <td>
+                                  <h6>
+                                   {% if Com.Statut.id == 1 %}
+                                    <span title="Non vérifié par l'administrateur">
+                                            <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                        <a href="#{{ Com }}">
+                                            <u>{{ Com }}</u>
+                                        </a>
+                                    </span>
+
+                                      {% elif Com.Statut.id == 2 %}
+                                        <span title="Vérifié par l'administrateur">
+                                                <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+
+                                            <a href="#{{ Com }}">
+                                                <u>{{ Com }}</u>
+                                            </a>
+                                        </span>
+                                      {% endif %}
+                                    </h6>
+                              </td>
+
+                              <td>
+                                    <!-- <h6>
+                                        <a href="#{{ Com }}">
+                                            <u>{{ Com }}</u>
+                                        </a>
+                                    </h6>   -->
+
+                                        {% empty %}
+                                           <td>
+                                              <h6>Aucune table des matières pour cette fiche.</h6>
+                                          </td>
+
+                                  {% endfor %}
+                              </td>
+                          </tr>
+                    </tbody>
+            </table>
+        </div>
+  </div>
+        <br>
+        <div class = "container">
+          <div class = "row row-cols-1">
+              <div class = "col">{{ theme_detail.Contenu }}</div>
+          </div>
+        </div>
+        <br>
+        <div class="container">
+                      <div class="row">
+                  {% for Com in C %}
+
+                          <table border="1" class = "linear-gradient" style="font-size:0.57em;">
+                          <thead>
+                              <tr>
+                                  <th>
+                                      <center><h4>{{ Com.Titre }}</h4></center>
+                                      <br>
+                                      <div id="{{ Com.Titre }}"></div>
+                                  </th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>
+                                      <h6>{{ Com.Contenu }}</h6>
+                                  </td>
+                              </tr>
+
+                              <tr>
+                                  <td>&nbsp</td>
+                              </tr>
+                                  <!--<td>
+                                      <h6>
+
+                                      {{ Com.Nom }} {{ Com.Prenom }} &nbsp;
+
+                                      {% if Com.Statut.id == 1 %}
+                                            <span style="float:right;" title="Non vérifié par l'administrateur">
+                                                <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                                <i>Non vérifié</i>
+                                                </span>
+                                      {% elif Com.Statut.id == 2 %}
+                                            <span style="float:right;" title="Vérifié par l'administrateur">
+                                                <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+                                                <i>Vérifié</i>
+                                            </span>
+                                      {% endif %}
+                                    </h6>-->
+                                  </td>
+
+                              <!--<tr>
+                                  <td>
+                                    <h6> <i>Date publication : {{ Com.DateCreation }}</i></h6>
+                                  </td>
+                              </tr>-->
+                              <tr>
+                                  <td>
+                                      <h6>
+                                          <i>
+                                              {{ Com.Nom }} {{ Com.Prenom }} &nbsp;Dernière modification : {{ Com.DateModification }}   &nbsp
+                                              {% if Com.Statut.id == 1 %}
+                                            <span style="float:right;" title="Non vérifié par l'administrateur">
+                                                <img src="/static/css/close-circle-fill.png" alt="Non vérifié par l'administrateur">
+                                                <i>Non vérifié</i>
+                                                </span>
+                                      {% elif Com.Statut.id == 2 %}
+                                            <span style="float:right;" title="Vérifié par l'administrateur">
+                                                <img src="/static/css/checkbox-circle-fill.png" alt="Vérifié par l'administrateur">
+                                                <i>Vérifié</i>
+                                            </span>
+                                      {% endif %}
+                                          </i>
+                                      </h6>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <a href="{% url 'theme:Edit-Comment-Theme-Modop' pk=Com.pk %}" target="_blank">
+                                            <button class="btn btn-warning">MODIFIER</button>
+                                      </a>
+
+                                       <a href="{% url 'theme:Historique-Commentaire' pk=Com.pk %}" target="_blank">
+                                            <button class="btn btn-dark">HISTORIQUE COMMENTAIRE</button>
+                                       </a>
+                                  </td>
+                              </tr>
+                          </tbody>
+                        </table>
+                        <br>
+                  </div>
+                        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'baseSansBg.html' %}
+
+{% block title %}
+    <title>WIKI CEM | THÈMES</title>
+{% endblock %}
+
+{% block content %}
+
+<!--    <center>
+        <h3>THÈMES</h3>
+        <br>
+    </center>-->
+
+    <center>
+        <table border="0" class = "table table-hover">
+            <thead>
+            <tr>
+                <th><h4>Les thèmes disponibles sur notre WIKI CEM</h4></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for t in theme %}
+            <tr>
+                <td>
+                    <h4>
+                        <a href="{% url 'theme:Theme-detail' pk=t.pk %}">{{t.Titre}}</a>
+                    </h4>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </center>
+
+{% endblock %}

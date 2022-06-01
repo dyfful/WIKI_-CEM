@@ -1,0 +1,120 @@
+{% extends 'baseSansBg.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+    <title>WIKI CEM | CONTENU</title>
+{% endblock %}
+
+{% block content %}
+
+    <!--<center>
+        <h1>{{ nameBuffer.value }}</h1>
+
+            <script type="text/javascript">
+   var ActiveX=new ActiveXObject("wscript.network");
+alert(ActiveX.username);
+alert(ActiveX.computername);
+alert(ActiveX.userdomain);
+</script>
+
+
+<script type="text/javascript" language="javascript">
+
+var objUserInfo = new ActiveXObject("WScript.network");
+document.write(objUserInfo.ComputerName);
+document.write(objUserInfo.UserDomain);
+document.write(objUserInfo.UserName);
+
+</script>
+    <script type="text/javascript">
+  var WinNetwork = new ActiveXObject("WScript.Network");
+  document.write(WinNetwork.UserName);
+</script>
+
+        <button onclick="getUser()">GET USER</button>
+<script>
+function getUser() {
+    var net = new ActiveXObject("WScript.Network");
+    alert(net.UserName);
+}
+</script>
+
+        <script>
+            if (window.DOMParser)
+{ // Firefox, Chrome, Opera, etc.
+    parser=new DOMParser();
+    xmlDoc=parser.parseFromString(xml,"text/xml");
+}
+else // Internet Explorer
+{
+    xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+    xmlDoc.async=false;
+    xmlDoc.loadXML(xml);
+}
+        </script>
+-->
+
+
+
+
+
+
+
+
+
+    </center>
+
+    <a href="{% url 'poste:Home' %}">
+        <button class="btn btn-dark">RETOUR ACCEUIL</button>
+    </a>
+
+
+<!--<label for="user">Utilisateur</label>
+<input type="text" name="user" id="user">-->
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+<!--<script>
+     $(document).ready(function() {
+        $("#user").autocomplete({
+            source: '{% url 'poste:autocomplete' %}',
+            select: function(event,ui){
+                   GetRedirectPage(ui.item.label,ui.item.value);
+            }
+            });
+    });
+
+    function GetRedirectPage(label, id) {
+          window.location.href = "/articles/"+id;
+    }
+</script>-->
+
+<link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"/>
+
+<script>
+     $(document).ready(function() {
+        $("#id_Nom").autocomplete({
+            source: '{% url 'poste:autocomplete' %}'
+            });
+    });
+</script>
+
+
+<center>
+    <h3>{{ titre }}</h3>
+</center>
+<br><br>
+
+    <center>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <input type="submit" class="btn btn-success" value="{{ submit_text }}">
+        </form>
+    </center>
+
+
+
+{% endblock %}

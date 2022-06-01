@@ -1,0 +1,31 @@
+{% extends 'baseSansBg.html' %}
+
+{% block title %}
+    <title>WIKI CEM | POSTES</title>
+{% endblock %}
+
+{% block content %}
+<h3>
+    <center>
+        <h1>POSTES</h1>
+    </center>
+
+
+
+    <center>
+        {{ sB }}
+
+        <p>Entrer un nom de postes : </p>
+
+        <input type="text" list="posteRTE" Placeholder="Search poste...." class="form-control" style="width:300px;">
+
+        <datalist id="posteRTE">
+            {% for rt in sB %}
+                <option hidden="{{rt.pk}}" value="{{ rt.libelle}} {{rt.Tension}}">{{ rt.libelle}}</option>
+            {% endfor %}
+        </datalist>
+
+    </center>
+
+</h3>
+{% endblock %}
