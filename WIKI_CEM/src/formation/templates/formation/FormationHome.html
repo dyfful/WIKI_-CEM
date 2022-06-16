@@ -61,18 +61,17 @@
         </center>
                 <br><br>
 
-
-            <div class="container" style="border:1px solid red;">
+<!--style="border:1px solid red;"-->
+            <div class="container">
               <div class="row">
 
                 {% for d in formation %}
-                    <div class="col" style="border:1px solid yellow;">
-
-
+                    <div class="col-4" style="border:1px solid yellow;">
+                        <center>
                             <table border="0" class = "linear-gradient">
                                 <thead>
                                     <tr>
-                                        <th border = 2px, colspan="2"><center><h4><nobr>{{ d.libelle}}</nobr></h4></center></th>
+                                        <th border = 2px, colspan="2"><center><h5><nobr>{{ d.libelle}}</nobr></h5></center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,7 +79,9 @@
                                         <td><center><h4><a href="{{d.url}}" target="_blank">> {{ d.nomButton}} <</a></h4></center></td>
                                     </tr>
                                 </tbody>
-                            </table><br>
+                            </table>
+                        </center>
+                        <br>
                     </div>
 
                {% endfor %}

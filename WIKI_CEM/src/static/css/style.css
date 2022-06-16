@@ -1,0 +1,53 @@
+body{
+    background-color: #3D70AD;
+    background-image: url("marseille-removebg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    font-family: 'Calibri', sans-serif;
+}
+
+.linear-gradient {
+    background: linear-gradient(180deg, rgba(11,135,249,0.38) 62.5%, rgba(11,135,249,0) 100%);
+}
+
+table {
+    border-radius: 20px;
+}
+
+/*nav {
+    display: flex;
+}*/
+
+.navbar-brand {
+    left: 5px;
+    top: -28px;
+}
+
+ul {
+    position: absolute;
+    width: auto;
+    height: auto;
+    left: auto;
+    top: auto;
+    background: rgba(0, 166, 217, 0.96);
+    border-radius: 10px;
+}
+
+
+#psNav2 {
+    display: inline-block;
+    background-color: red;
+    width: 2px;
+}
+
+.navbar{
+    display: flex;
+    height: auto;
+}
+
+a {
+    color: white;
+}
+

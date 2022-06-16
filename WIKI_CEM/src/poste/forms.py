@@ -19,7 +19,7 @@ class Post(forms.ModelForm):
     class Meta:
         model = Poste
         fields = ['idRTE', 'libelle', 'Tension', 'TypePoste',
-                  'Impact', 'protectionBarre', 'CCO', 'Filerie', 'AutomatismePoste', 'JDB', 'Groupement', 'Consigne']
+                  'Impact', 'protectionBarre', 'CCO', 'Filerie', 'AutomatismePoste', 'JDB', 'Groupement', 'Consigne', 'Couleur', ]
 
     # def __init__(self, *args, **kwargs):
     #     super(Poste, self).__init__(*args, **kwargs)

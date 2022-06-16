@@ -140,7 +140,7 @@ class CCO(models.Model):
 
 
 class ProtectionBarre(models.Model):
-    libelle = models.CharField(max_length=5)
+    libelle = models.CharField(max_length=15)
 
     def __str__(self):
         return self.libelle
@@ -151,6 +151,26 @@ class TypePoste(models.Model):
 
     def __str__(self):
         return self.libelle
+
+
+class Propriete(models.Model):
+    libelle = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.libelle
+
+    class Meta:
+        ordering = ["libelle"]
+
+
+class Couleur(models.Model):
+    libelle = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.libelle
+
+    class Meta:
+        ordering = ["libelle"]
 
 
 class Formation(models.Model):
@@ -189,6 +209,14 @@ class Poste(models.Model):
 
     Tension = models.ForeignKey(Tension, on_delete=models.SET_NULL, null=True, verbose_name="TENSION")
     TypePoste = models.ForeignKey(TypePoste, on_delete=models.SET_NULL, null=True, verbose_name="TYPE")
+    Propriete = models.ForeignKey(Propriete, on_delete=models.SET_NULL, null=True, verbose_name="PROPRIÉTÉ")
+
+    COULEURS_CHOICES = [
+        ('1', 'BLEU'),
+        ('2', 'ROUGE'),
+        ('3', 'NOIR'),
+    ]
+    Couleur = models.ForeignKey(Couleur, on_delete=models.SET_NULL, null=True,choices=COULEURS_CHOICES,  verbose_name="Couleur")
     Impact = models.ForeignKey(Impact, on_delete=models.SET_NULL, null=True, verbose_name="IMPACT")
 
     protectionBarre = models.ForeignKey(ProtectionBarre, on_delete=models.SET_NULL, null=True, blank=True,
