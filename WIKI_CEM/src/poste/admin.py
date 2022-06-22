@@ -8,7 +8,7 @@ admin.site.site_title = 'WIKI CEM'  # default: "Django site admin"
 
 # Register your models here.
 from poste.models import Poste, Zone, CategorieZone, PO, Groupement, CategorieConsigne
-from poste.models import Client, TypeClient, Consigne, Formation, Theme, Commentaire, ACR, Couleur
+from poste.models import Client, TypeClient, Consigne, Formation, Theme, Commentaire, ACR
 
 
 def custom_titled_filter(title):
@@ -24,7 +24,7 @@ def custom_titled_filter(title):
 @admin.register(Poste)
 class PosteAdmin(admin.ModelAdmin):
     # list_display = ("idRTE", "libelle", "Impact", "Tension", "statut_sp", "statut_ap", )
-    list_display = ("idRTE", "libelle", "Impact", "Tension", "statut_sp", "statut_ap", "getConsigne", "Couleur")
+    list_display = ("idRTE", "libelle", "Impact", "Tension", "statut_sp", "statut_ap", "getConsigne")
 
     # @admin.display(description='Consigne associées')
     def getConsigne(self, obj):

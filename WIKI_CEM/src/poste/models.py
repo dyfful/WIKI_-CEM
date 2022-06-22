@@ -163,7 +163,7 @@ class Propriete(models.Model):
         ordering = ["libelle"]
 
 
-class Couleur(models.Model):
+class TypeEtrange(models.Model):
     libelle = models.CharField(max_length=20)
 
     def __str__(self):
@@ -201,23 +201,18 @@ class Poste(models.Model):
     image = models.ImageField(upload_to='poste', blank=True)
 
     # schemas_preferentiel = models.TextField(blank=True)
-    schemas_preferentiel = tinymce_models.HTMLField(blank=True)
-    statut_sp = models.BooleanField(default=False, verbose_name="VÉRIFIER : SCHEMAS PREFERENTIEL")
+    schemas_preferentiel = tinymce_models.HTMLField(blank=True, null=True)
+    statut_sp = models.BooleanField(default=False, null=True, verbose_name="VÉRIFIER : SCHEMAS PREFERENTIEL")
 
-    autre_particulariter = models.TextField(blank=True)
-    statut_ap = models.BooleanField(default=False, verbose_name="VÉRIFIER : AUTRE PARTICULARITER")
+    autre_particulariter = models.TextField(blank=True, null=True)
+    statut_ap = models.BooleanField(default=False, null=True, verbose_name="VÉRIFIER : AUTRE PARTICULARITER")
 
     Tension = models.ForeignKey(Tension, on_delete=models.SET_NULL, null=True, verbose_name="TENSION")
     TypePoste = models.ForeignKey(TypePoste, on_delete=models.SET_NULL, null=True, verbose_name="TYPE")
     Propriete = models.ForeignKey(Propriete, on_delete=models.SET_NULL, null=True, verbose_name="PROPRIÉTÉ")
 
-    COULEURS_CHOICES = [
-        ('1', 'BLEU'),
-        ('2', 'ROUGE'),
-        ('3', 'NOIR'),
-    ]
-    Couleur = models.ForeignKey(Couleur, on_delete=models.SET_NULL, null=True,choices=COULEURS_CHOICES,  verbose_name="Couleur")
     Impact = models.ForeignKey(Impact, on_delete=models.SET_NULL, null=True, verbose_name="IMPACT")
+    TypeEtrange = models.ForeignKey(TypeEtrange, on_delete=models.SET_NULL, null=True, verbose_name="TYPE")
 
     protectionBarre = models.ForeignKey(ProtectionBarre, on_delete=models.SET_NULL, null=True, blank=True,
                                         verbose_name="PROTECTIONS BARRES")
@@ -241,7 +236,7 @@ class Poste(models.Model):
 
 
 class Zone(models.Model):
-    libelle = models.CharField(max_length=20)
+    libelle = models.CharField(max_length=35)
     presentation = models.TextField(blank=True)
     image = models.ImageField(upload_to='zone', blank=True)
 
