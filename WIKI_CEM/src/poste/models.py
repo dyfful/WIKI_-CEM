@@ -209,7 +209,7 @@ class Poste(models.Model):
 
     Tension = models.ForeignKey(Tension, on_delete=models.SET_NULL, null=True, verbose_name="TENSION")
     TypePoste = models.ForeignKey(TypePoste, on_delete=models.SET_NULL, null=True, verbose_name="TYPE")
-    Propriete = models.ForeignKey(Propriete, on_delete=models.SET_NULL, null=True, verbose_name="PROPRIÉTÉ")
+    # Propriete = models.ForeignKey(Propriete, on_delete=models.SET_NULL, null=True, verbose_name="PROPRIÉTÉ")
 
     Impact = models.ForeignKey(Impact, on_delete=models.SET_NULL, null=True, verbose_name="IMPACT")
     TypeEtrange = models.ForeignKey(TypeEtrange, on_delete=models.SET_NULL, null=True, verbose_name="TYPE")
